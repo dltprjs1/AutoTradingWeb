@@ -18,7 +18,7 @@
 
 | Homepage  | Charts  | Table  | Setting  |
 |---|---|---|---|
-| ![Homepage](src/main/resources/static/assets/ReadMe/AutoTrading_Main.png) | ![Charts](src/main/resources/static/assets/ReadMe/AutoTrading_Main.png) | ![Table](src/main/resources/static/assets/ReadMe/AutoTrading_Main.png) | ![Setting](src/main/resources/static/assets/ReadMe/AutoTrading_Main.png) |
+| ![Homepage](src/main/resources/static/assets/ReadMe/AutoTrading_Main.png) | ![Charts](src/main/resources/static/assets/ReadMe/AutoTrading_Charts.png) | ![Table](src/main/resources/static/assets/ReadMe/AutoTrading_Table.png) | ![Setting](src/main/resources/static/assets/ReadMe/AutoTrading_Main.png) |
 
 ### 메인 페이지 구성
 
