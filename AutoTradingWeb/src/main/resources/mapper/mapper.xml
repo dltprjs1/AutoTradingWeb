@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.AutoTrading.Web.AutoTrading_Mapper">	
+
+	 <select id="SelectCondition" resultType="com.AutoTrading.Web.DTO.AutoTrading_Condition_DTO">
+        SELECT * FROM(
+		SELECT TOP (10) SUBSTRING(AUTOTRADING_EVENT_NO,0,8) AS DATE,
+		SUBSTRING(AUTOTRADING_EVENT_NO,9,4)+'00' AS TIME,
+		[CURRENT_PRICE],[EMA5],[EMA10],[EMA200],[CURRENT_EMA200],[MACD12],[MACD26],[CCI],[CURRENTCCI]
+		FROM [FUTURE].[dbo].[AUTOTRADING_CONDITION] 
+		ORDER BY AUTOTRADING_EVENT_NO DESC) A
+		ORDER BY RIGHT(TIME,6)
+    </select>
+    
+    <select id="GetBalance" resultType="com.AutoTrading.Web.DTO.AutoTrading_Balance_DTO">
+    	SELECT TOP (20) SUBSTRING(AUTOTRADING_EVENT_NO, 1, 8) AS AUTOTRADING_EVENT_NO, CURRENT_USDT
+		FROM [FUTURE].[dbo].[AUTOTRADING_CURRENT_ACCOUNT_INFO]
+		GROUP BY SUBSTRING(AUTOTRADING_EVENT_NO, 1, 8), CURRENT_USDT
+		ORDER BY AUTOTRADING_EVENT_NO;
+    </select>
+    
+    <select id="GetInformation" resultType="com.AutoTrading.Web.DTO.AutoTrading_Information_DTO">
+    	EXEC AUTOTRADING_TODAY_INFORMATION;
+    </select>
+    
+    <select id="GetTradesHistory" resultType="com.AutoTrading.Web.DTO.AutoTrading_TradesHistory_DTO">
+    	EXEC AUTOTRADING_TRADING_HISTORY;
+    </select>
+    
+    <select id="GetErrorChartData" resultType="com.AutoTrading.Web.DTO.AutoTrading_ErrorChart_DTO">
+    	EXEC AUTOTRADING_TODAY_ErrorTitle;
+    </select>
+    
+    <select id="GetTradesHistoryPagination" statementType="CALLABLE" resultType="com.AutoTrading.Web.DTO.AutoTrading_TradesHistory_DTO">
+	    {call AUTOTRADING_TODAY_PagingAndSearching(#{param1, mode=IN, jdbcType=INTEGER},
+	    										   #{param2, mode=IN, jdbcType=INTEGER},
+	    										   #{param3, mode=IN, jdbcType=INTEGER}, 
+	    										   #{param4, mode=IN, jdbcType=NVARCHAR})}
+	</select>
+	
+	<select id="GetErrorPagination" statementType="CALLABLE" resultType="com.AutoTrading.Web.DTO.AutoTrading_Error_DTO">
+	    {call AUTOTRADING_TODAY_PagingAndSearching(#{param1, mode=IN, jdbcType=INTEGER},
+	    										   #{param2, mode=IN, jdbcType=INTEGER},
+	    										   #{param3, mode=IN, jdbcType=INTEGER}, 
+	    										   #{param4, mode=IN, jdbcType=NVARCHAR})}
+	</select>
+	
+	<select id="GetConditionPagination" statementType="CALLABLE" resultType="com.AutoTrading.Web.DTO.AutoTrading_Condition_DTO">
+		{call AUTOTRADING_TODAY_PagingAndSearching(#{param1, mode=IN, jdbcType=INTEGER}, 
+												   #{param2, mode=IN, jdbcType=INTEGER}, 
+												   #{param3, mode=IN, jdbcType=INTEGER}, 
+												   #{param4, mode=IN, jdbcType=NVARCHAR})}
+	</select>
+    
+    <select id="GetConditionDetails" resultType="com.AutoTrading.Web.DTO.AutoTrading_Condition_Details_DTO">
+    	SELECT 
+		SUBSTRING(SUBSTRING(AUTOTRADING_EVENT_NO,9,6), 1, 2) + ':' + SUBSTRING(SUBSTRING(AUTOTRADING_EVENT_NO,9,6), 3, 2) AS TIME ,
+		CURRENT_PRICE,
+		EMA5,
+		EMA10,
+		EMA200,
+		CURRENT_EMA200,
+		MACD12,
+		MACD26,
+		CCI,
+		CURRENTCCI,
+		COMPARE_CURRENT_PRICE_WITH_EMA200,
+		COMPARE_EMA5_WITH_EMA10,
+		COMPARE_EMA5_WITH_EMA200,
+		COMPARE_MACD12_WITH_MACD26,
+		COMPARE_MACD12_WITH_ZERO,
+		CHECK_CCI_OR_CURRENT_CCI
+		FROM AUTOTRADING_CONDITION A WHERE A.AUTOTRADING_EVENT_NO IN
+		(
+			SELECT TOP 10
+				MAX(AUTOTRADING_EVENT_NO) AS NO
+			FROM AUTOTRADING_CONDITION
+			WHERE SUBSTRING(AUTOTRADING_EVENT_NO, 11, 2) = '00' OR SUBSTRING(AUTOTRADING_EVENT_NO, 11, 2) = '30'
+			GROUP BY
+				SUBSTRING(SUBSTRING(AUTOTRADING_EVENT_NO, 9, 6), 1, 2),
+				SUBSTRING(SUBSTRING(AUTOTRADING_EVENT_NO, 9, 6), 1, 2) + ':' + SUBSTRING(SUBSTRING(AUTOTRADING_EVENT_NO, 9, 6), 3, 2)
+			ORDER BY MAX(SUBSTRING(AUTOTRADING_EVENT_NO,0,13)) DESC
+		)
+    </select>
+   
+    <select id="SelectTest" resultType="com.AutoTrading.Web.DTO.Test_DTO">
+        SELECT TOP (1) AUTOTRADING_EVENT_NO,Current_PRICE
+		FROM AUTOTRADING_CONDITION 
+		ORDER BY AUTOTRADING_EVENT_NO DESC
+    </select>    
+</mapper>

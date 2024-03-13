@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <link rel="icon" href="assets/img/favicon.ico"/>
+        <title>Tables - SB Admin</title>
+        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
+        <link href="css/styles.css" rel="stylesheet" />
+        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    </head>
+    <body class="sb-nav-fixed">
+        <!-- <header data-include-file="./include/header.html" class="header-wrap includeJs"></header> -->
+        <nav data-include1="header" id="header" class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+		    <!-- Navbar Brand-->
+			<a class="navbar-brand ps-3" href="/index">Auto Trading Service</a>
+		    <!-- Sidebar Toggle-->
+		    <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+		    <!-- Navbar Search-->
+		    <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0"></form>
+		    <!-- Navbar-->
+		    <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+		        <li class="nav-item dropdown">
+		            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+		            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+		                <li><a class="dropdown-item" href="#!">Settings</a></li>
+		                <li><a class="dropdown-item" href="#!">Activity Log</a></li>
+		                <li><hr class="dropdown-divider" /></li>
+		                <li><a class="dropdown-item" href="#!">Logout</a></li>
+		            </ul>
+		        </li>
+		    </ul>
+		</nav>
+        <div id="layoutSidenav">
+            <header data-include-file="./include/side.html" class="header-wrap includeJs"></header>
+            <div id="layoutSidenav_content">
+                <main>
+                    <div class="container-fluid px-4">
+                        <h1 class="mt-4">TABLE</h1>
+                        <ol class="breadcrumb mb-4">
+                            <li class="breadcrumb-item"><a href="index.html">HOME</a></li>
+                            <li class="breadcrumb-item active">TABLE</li>
+                        </ol>
+                       <div class="container" style="text-align: center;">
+							<div class="col-xs-12" style="display :inline-block;">
+								<div class="btn-group mb-4" role="group" aria-label="Basic radio toggle button group">
+								  	<input type="radio" class="btn-check Trades" name="btnradio" id="btnradio1" autocomplete="off" checked>
+								  	<label id ="latelyTradesHistory" class="btn btn-outline-secondary" style="width:20vw;" onclick="Tab('/GetTradesHistory',1,1,10)" for="btnradio1">최근 거래 내역</label>
+								
+								  	<input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+								  	<label class="btn btn-outline-secondary" style="width:20vw;" onclick="Tab('/GetOrderCondition',1,1,10)" for="btnradio2">주문 조건 확인</label>
+								
+								  	<input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
+								  	<label id ="latelyErrorHistory" class="btn btn-outline-danger" style="width:20vw;" onclick="Tab('/GetError',1,1,10)" for="btnradio3">에러 현황</label>
+								</div>
+							</div>
+						</div>						
+                        <div id ="AllOfTable" class="card mb-4">
+                            <div id="TableTitle" class="card-header">
+                                <i class="fas fa-table me-1"></i>
+                                실시간 트레이딩 데이터 테이블
+                            </div>
+                            <div class="card-body">
+                                <table id="datatablesSimple">
+                                    <thead>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Time</th>
+                                            <th>Name</th>
+                                            <th>Entry Price</th>
+                                            <th>Sold price</th>
+                                            <th>Cost</th>
+                                            <th>ProfitAndLoss</th>
+                                            <th>Fee</th>
+                                            <th>Position</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Time</th>
+                                            <th>Name</th>
+                                            <th>Entry Price</th>
+                                            <th>Sold price</th>
+                                            <th>Cost</th>
+                                            <th>ProfitAndLoss</th>
+                                            <th>Fee</th>
+                                            <th>Position</th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                    	<tr>
+                							<td>2024-03-06</td>
+                							<td>17:30:04</td>
+                							<td></td>
+                							<td>67428.6</td>
+                							<td>67687.6</td>
+                							<td>1348.57</td>
+                							<td>2.7915440400000002</td>
+                							<td>1.0788576</td>                							
+                							<td>L</td>
+						            	</tr>	
+                                    </tbody>
+                                </table>
+	                            <div class="paging" style="text-align:end;">
+							        <span id="pageNumbers" style="display: inline-block;"></span>
+							    </div> 
+                            </div>
+                        </div>
+                    </div>
+                </main>
+                <header data-include-file="./include/footer.html" class="footer-wrap includeJs"></header>
+            </div>
+        </div>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>        
+        <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
+        <script src="js/datatables-simple-demo.js"></script>
+        <script src="assets/web/datatables-demo.js"></script>
+        <script src="assets/web/include.js"></script>
+        <script src="js/scripts.js"></script>
+    </body>
+</html>

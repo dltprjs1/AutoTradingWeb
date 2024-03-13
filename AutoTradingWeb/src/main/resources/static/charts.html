@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+<title>Charts - SB Admin</title>
+<link rel="icon" href="assets/img/favicon.ico"/>
+<link href="css/styles.css" rel="stylesheet" />
+<script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js"
+	crossorigin="anonymous"></script>
+</head>
+<body class="sb-nav-fixed">
+	<!-- <header data-include-file="./include/header.html" class="header-wrap includeJs"></header> -->
+	<nav data-include1="header" id="header" class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+	    <!-- Navbar Brand-->
+		<a class="navbar-brand ps-3" href="/index">Auto Trading Service</a>
+	    <!-- Sidebar Toggle-->
+	    <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+	    <!-- Navbar Search-->
+	    <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0"></form>
+	    <!-- Navbar-->
+	    <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+	        <li class="nav-item dropdown">
+	            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+	            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+	                <li><a class="dropdown-item" href="#!">Settings</a></li>
+	                <li><a class="dropdown-item" href="#!">Activity Log</a></li>
+	                <li><hr class="dropdown-divider" /></li>
+	                <li><a class="dropdown-item" href="#!">Logout</a></li>
+	            </ul>
+	        </li>
+	    </ul>
+	</nav>
+	<div id="layoutSidenav">
+		<header data-include-file="./include/side.html" class="header-wrap includeJs"></header>
+		<div id="layoutSidenav_content">
+			<main>
+				<div class="container-fluid px-4">
+					<h1 class="mt-4">Charts</h1>
+					<ol class="breadcrumb mb-4">
+						<li class="breadcrumb-item"><a href="index.html">HOME</a></li>
+						<li class="breadcrumb-item active">CHART</li>
+					</ol>
+					<div class="row">
+						<div class="col-lg-6">
+							<div id="30MIN_BTC_DATA" class="card mb-4">
+								<div id="chartTitle" class="card-header">
+									<i class="fas fa-chart-area me-1"></i> BTC 데이터
+								</div>
+								<div class="card-body">
+									<canvas id="30Min_BTC_Canvas" width="100%" height="30"></canvas>
+								</div>					
+							</div>
+						</div>
+						<div class="col-lg-6">
+							<div id="CONDITION_DATA" class="card mb-4">
+								<div id="chartTitle" class="card-header">
+									<i class="fas fa-chart-area me-1"></i> Position Check
+								</div>
+								<div class="card-body">
+									<canvas id="Condition_Canvas" width="100%" height="30"></canvas>
+								</div>					
+							</div>
+						</div>
+						<div class="col-lg-4">
+							<div id="30MIN_EMA_DATA" class="card mb-4">
+								<div id="chartTitle" class="card-header">
+									<i class="fas fa-chart-area me-1"></i> EMA 데이터
+								</div>
+								<div class="card-body">
+									<canvas id="30Min_EMA_Canvas" width="100%" height="30"></canvas>
+								</div>					
+							</div>
+						</div>
+						<div class="col-lg-4">
+							<div id="30MIN_MACD_DATA" class="card mb-4">
+								<div id="chartTitle" class="card-header">
+									<i class="fas fa-chart-area me-1"></i> MACD 데이터
+								</div>
+								<div class="card-body">
+									<canvas id="30Min_MACD_Canvas" width="100%" height="30"></canvas>
+								</div>					
+							</div>
+						</div>
+						<div class="col-lg-4">
+							<div id="30MIN_CCI_DATA" class="card mb-4">
+								<div id="chartTitle" class="card-header">
+									<i class="fas fa-chart-area me-1"></i> CCI 데이터
+								</div>
+								<div class="card-body">
+									<canvas id="30Min_CCI_Canvas" width="100%" height="30"></canvas>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-lg-6">
+							<div class="card mb-4">
+								<div class="card-header">
+									<i class="fas fa-chart-bar me-1"></i> 최근 거래에 따른 보유 금액
+								</div>
+								<div class="card-body">
+									<canvas id="myBarChart" width="100%" height="50"></canvas>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-6">
+							<div class="card mb-4">
+								<div class="card-header">
+									<i class="fas fa-chart-pie me-1"></i> 금일 에러 현황
+								</div>
+								<div class="card-body">
+									<canvas id="ErrorPieChart" width="100%" height="50"></canvas>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</main>
+			<header data-include-file="./include/footer.html" class="footer-wrap includeJs"></header>
+		</div>
+	</div>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+	<script src="js/scripts.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"crossorigin="anonymous"></script>
+	<script src="assets/web/chart-area-demo2.js"></script>
+	<script src="assets/web/chart-bar-demo.js"></script>
+	<script src="assets/web/chart-pie-demo.js"></script>
+	<script src="assets/web/include.js"></script>
+</body>
+</html>
